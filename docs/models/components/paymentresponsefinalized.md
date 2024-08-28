@@ -1,5 +1,19 @@
 # PaymentResponseFinalized
 
+## Example Usage
+
+```typescript
+import { PaymentResponseFinalized, PaymentResponseFinalizedTag, Status } from "@boltpay/bolt-typescript-sdk/models/components";
+
+let value: PaymentResponseFinalized = {
+    dotTag: PaymentResponseFinalizedTag.Finalized,
+    id: "iKv7t5bgt1gg",
+    status: Status.Success,
+    transaction: {
+        reference: "OBYG-X1PX-FN55",
+    },
+};
+```
 
 ## Fields
 

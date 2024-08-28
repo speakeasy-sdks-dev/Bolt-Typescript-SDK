@@ -26,11 +26,45 @@ import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 const boltTypescriptSDK = new BoltTypescriptSDK({
   security: {
     oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
   const result = await boltTypescriptSDK.account.getDetails("<value>", "<value>");
+
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { BoltTypescriptSDKCore } from "@boltpay/bolt-typescript-sdk/core.js";
+import { accountGetDetails } from "@boltpay/bolt-typescript-sdk/funcs/accountGetDetails.js";
+
+// Use `BoltTypescriptSDKCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const boltTypescriptSDK = new BoltTypescriptSDKCore({
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const res = await accountGetDetails(boltTypescriptSDK, "<value>", "<value>");
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -49,16 +83,17 @@ run();
 | `options.fetchOptions`                                                                                                                                                                                              | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                  | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                      |
 | `options.retries`                                                                                                                                                                                                   | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                  | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                    |
 
-
 ### Response
 
 **Promise\<[operations.AccountGetResponse](../../models/operations/accountgetresponse.md)\>**
+
 ### Errors
 
 | Error Object                  | Status Code                   | Content Type                  |
 | ----------------------------- | ----------------------------- | ----------------------------- |
 | errors.AccountGetResponseBody | 4XX                           | application/json              |
 | errors.SDKError               | 4xx-5xx                       | */*                           |
+
 
 ## addAddress
 
@@ -73,6 +108,7 @@ import { CountryCode } from "@boltpay/bolt-typescript-sdk/models/components";
 const boltTypescriptSDK = new BoltTypescriptSDK({
   security: {
     oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
@@ -98,6 +134,52 @@ async function run() {
 run();
 ```
 
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { BoltTypescriptSDKCore } from "@boltpay/bolt-typescript-sdk/core.js";
+import { accountAddAddress } from "@boltpay/bolt-typescript-sdk/funcs/accountAddAddress.js";
+import { CountryCode } from "@boltpay/bolt-typescript-sdk/models/components";
+
+// Use `BoltTypescriptSDKCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const boltTypescriptSDK = new BoltTypescriptSDKCore({
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const res = await accountAddAddress(boltTypescriptSDK, "<value>", "<value>", {
+    firstName: "Alice",
+    lastName: "Baker",
+    company: "ACME Corporation",
+    streetAddress1: "535 Mission St, Ste 1401",
+    streetAddress2: "c/o Shipping Department",
+    locality: "San Francisco",
+    postalCode: "94105",
+    region: "CA",
+    countryCode: CountryCode.Us,
+    email: "alice@example.com",
+    phone: "+14155550199",
+  });
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
+
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
 ### Parameters
 
 | Parameter                                                                                                                                                                                                           | Type                                                                                                                                                                                                                | Required                                                                                                                                                                                                            | Description                                                                                                                                                                                                         |
@@ -109,16 +191,17 @@ run();
 | `options.fetchOptions`                                                                                                                                                                                              | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                  | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                      |
 | `options.retries`                                                                                                                                                                                                   | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                  | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                    |
 
-
 ### Response
 
 **Promise\<[operations.AccountAddressCreateResponse](../../models/operations/accountaddresscreateresponse.md)\>**
+
 ### Errors
 
 | Error Object                            | Status Code                             | Content Type                            |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | errors.AccountAddressCreateResponseBody | 4XX                                     | application/json                        |
 | errors.SDKError                         | 4xx-5xx                                 | */*                                     |
+
 
 ## updateAddress
 
@@ -133,6 +216,7 @@ import { CountryCode } from "@boltpay/bolt-typescript-sdk/models/components";
 const boltTypescriptSDK = new BoltTypescriptSDK({
   security: {
     oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
@@ -158,6 +242,52 @@ async function run() {
 run();
 ```
 
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { BoltTypescriptSDKCore } from "@boltpay/bolt-typescript-sdk/core.js";
+import { accountUpdateAddress } from "@boltpay/bolt-typescript-sdk/funcs/accountUpdateAddress.js";
+import { CountryCode } from "@boltpay/bolt-typescript-sdk/models/components";
+
+// Use `BoltTypescriptSDKCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const boltTypescriptSDK = new BoltTypescriptSDKCore({
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const res = await accountUpdateAddress(boltTypescriptSDK, "D4g3h5tBuVYK9", "<value>", "<value>", {
+    firstName: "Alice",
+    lastName: "Baker",
+    company: "ACME Corporation",
+    streetAddress1: "535 Mission St, Ste 1401",
+    streetAddress2: "c/o Shipping Department",
+    locality: "San Francisco",
+    postalCode: "94105",
+    region: "CA",
+    countryCode: CountryCode.Us,
+    email: "alice@example.com",
+    phone: "+14155550199",
+  });
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
+
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
 ### Parameters
 
 | Parameter                                                                                                                                                                                                           | Type                                                                                                                                                                                                                | Required                                                                                                                                                                                                            | Description                                                                                                                                                                                                         | Example                                                                                                                                                                                                             |
@@ -170,16 +300,17 @@ run();
 | `options.fetchOptions`                                                                                                                                                                                              | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                  | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                      |                                                                                                                                                                                                                     |
 | `options.retries`                                                                                                                                                                                                   | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                  | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                    |                                                                                                                                                                                                                     |
 
-
 ### Response
 
 **Promise\<[operations.AccountAddressEditResponse](../../models/operations/accountaddresseditresponse.md)\>**
+
 ### Errors
 
 | Error Object                          | Status Code                           | Content Type                          |
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
 | errors.AccountAddressEditResponseBody | 4XX                                   | application/json                      |
 | errors.SDKError                       | 4xx-5xx                               | */*                                   |
+
 
 ## deleteAddress
 
@@ -193,11 +324,45 @@ import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 const boltTypescriptSDK = new BoltTypescriptSDK({
   security: {
     oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
   const result = await boltTypescriptSDK.account.deleteAddress("D4g3h5tBuVYK9", "<value>", "<value>");
+
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { BoltTypescriptSDKCore } from "@boltpay/bolt-typescript-sdk/core.js";
+import { accountDeleteAddress } from "@boltpay/bolt-typescript-sdk/funcs/accountDeleteAddress.js";
+
+// Use `BoltTypescriptSDKCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const boltTypescriptSDK = new BoltTypescriptSDKCore({
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const res = await accountDeleteAddress(boltTypescriptSDK, "D4g3h5tBuVYK9", "<value>", "<value>");
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -217,16 +382,17 @@ run();
 | `options.fetchOptions`                                                                                                                                                                                              | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                  | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                      |                                                                                                                                                                                                                     |
 | `options.retries`                                                                                                                                                                                                   | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                  | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                    |                                                                                                                                                                                                                     |
 
-
 ### Response
 
 **Promise\<[operations.AccountAddressDeleteResponse](../../models/operations/accountaddressdeleteresponse.md)\>**
+
 ### Errors
 
 | Error Object                            | Status Code                             | Content Type                            |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | errors.AccountAddressDeleteResponseBody | 4XX                                     | application/json                        |
 | errors.SDKError                         | 4xx-5xx                                 | */*                                     |
+
 
 ## addPaymentMethod
 
@@ -241,22 +407,68 @@ import { AddressReferenceIdTag, CreditCardNetwork, DotTag } from "@boltpay/bolt-
 const boltTypescriptSDK = new BoltTypescriptSDK({
   security: {
     oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
   const result = await boltTypescriptSDK.account.addPaymentMethod("<value>", "<value>", {
-      dotTag: DotTag.CreditCard,
-    billingAddress:     {
-          dotTag: AddressReferenceIdTag.Id,
-          id: "D4g3h5tBuVYK9",
-        },
-      network: CreditCardNetwork.Visa,
-      bin: "411111",
-      last4: "1004",
-      expiration: "2025-03",
-      token: "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
-    });
+    dotTag: DotTag.CreditCard,
+    billingAddress: {
+      dotTag: AddressReferenceIdTag.Id,
+      id: "D4g3h5tBuVYK9",
+    },
+    network: CreditCardNetwork.Visa,
+    bin: "411111",
+    last4: "1004",
+    expiration: "2025-03",
+    token: "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
+  });
+
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { BoltTypescriptSDKCore } from "@boltpay/bolt-typescript-sdk/core.js";
+import { accountAddPaymentMethod } from "@boltpay/bolt-typescript-sdk/funcs/accountAddPaymentMethod.js";
+import { AddressReferenceIdTag, CreditCardNetwork, DotTag } from "@boltpay/bolt-typescript-sdk/models/components";
+
+// Use `BoltTypescriptSDKCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const boltTypescriptSDK = new BoltTypescriptSDKCore({
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const res = await accountAddPaymentMethod(boltTypescriptSDK, "<value>", "<value>", {
+    dotTag: DotTag.CreditCard,
+    billingAddress: {
+      dotTag: AddressReferenceIdTag.Id,
+      id: "D4g3h5tBuVYK9",
+    },
+    network: CreditCardNetwork.Visa,
+    bin: "411111",
+    last4: "1004",
+    expiration: "2025-03",
+    token: "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
+  });
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -276,16 +488,17 @@ run();
 | `options.fetchOptions`                                                                                                                                                                                              | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                  | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                      |
 | `options.retries`                                                                                                                                                                                                   | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                  | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                    |
 
-
 ### Response
 
 **Promise\<[operations.AccountAddPaymentMethodResponse](../../models/operations/accountaddpaymentmethodresponse.md)\>**
+
 ### Errors
 
 | Error Object                               | Status Code                                | Content Type                               |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | errors.AccountAddPaymentMethodResponseBody | 4XX                                        | application/json                           |
 | errors.SDKError                            | 4xx-5xx                                    | */*                                        |
+
 
 ## deletePaymentMethod
 
@@ -299,11 +512,45 @@ import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 const boltTypescriptSDK = new BoltTypescriptSDK({
   security: {
     oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
   },
 });
 
 async function run() {
   const result = await boltTypescriptSDK.account.deletePaymentMethod("D4g3h5tBuVYK9", "<value>", "<value>");
+
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { BoltTypescriptSDKCore } from "@boltpay/bolt-typescript-sdk/core.js";
+import { accountDeletePaymentMethod } from "@boltpay/bolt-typescript-sdk/funcs/accountDeletePaymentMethod.js";
+
+// Use `BoltTypescriptSDKCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const boltTypescriptSDK = new BoltTypescriptSDKCore({
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
+});
+
+async function run() {
+  const res = await accountDeletePaymentMethod(boltTypescriptSDK, "D4g3h5tBuVYK9", "<value>", "<value>");
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -323,10 +570,10 @@ run();
 | `options.fetchOptions`                                                                                                                                                                                              | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                  | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                      |                                                                                                                                                                                                                     |
 | `options.retries`                                                                                                                                                                                                   | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                  | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                    |                                                                                                                                                                                                                     |
 
-
 ### Response
 
 **Promise\<[operations.AccountPaymentMethodDeleteResponse](../../models/operations/accountpaymentmethoddeleteresponse.md)\>**
+
 ### Errors
 
 | Error Object                                  | Status Code                                   | Content Type                                  |
