@@ -4,8 +4,32 @@
     <a href="https://github.com/BoltApp/Bolt-Typescript-SDK.git/actions"><img src="https://img.shields.io/github/actions/workflow/status/BoltApp/Bolt-Typescript-SDK/speakeasy_sdk_generation.yml?style=for-the-badge" /></a>
 </div>
 
+<!-- Start Summary [summary] -->
+## Summary
+
+Bolt API Reference: A comprehensive Bolt API reference for interacting with Accounts, Payments, Orders and more.
+<!-- End Summary [summary] -->
+
+<!-- Start Table of Contents [toc] -->
+## Table of Contents
+
+* [SDK Installation](#sdk-installation)
+* [Requirements](#requirements)
+* [SDK Example Usage](#sdk-example-usage)
+* [Available Resources and Operations](#available-resources-and-operations)
+* [Standalone functions](#standalone-functions)
+* [Retries](#retries)
+* [Error Handling](#error-handling)
+* [Server Selection](#server-selection)
+* [Custom HTTP Client](#custom-http-client)
+* [Authentication](#authentication)
+* [Debugging](#debugging)
+<!-- End Table of Contents [toc] -->
+
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
+
+The SDK can be installed with either [npm](https://www.npmjs.com/), [pnpm](https://pnpm.io/), [bun](https://bun.sh/) or [yarn](https://classic.yarnpkg.com/en/) package managers.
 
 ### NPM
 
@@ -44,16 +68,20 @@ yarn add @boltpay/bolt-typescript-sdk zod
 import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 
 const boltTypescriptSDK = new BoltTypescriptSDK({
-    security: {
-        oauth: "<YOUR_OAUTH_HERE>",
-    },
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
 });
 
 async function run() {
-    const result = await boltTypescriptSDK.account.getDetails("<value>", "<value>");
+  const result = await boltTypescriptSDK.account.getDetails(
+    "<value>",
+    "<value>",
+  );
 
-    // Handle the result
-    console.log(result);
+  // Handle the result
+  console.log(result);
 }
 
 run();
@@ -63,6 +91,9 @@ run();
 
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
+
+<details open>
+<summary>Available methods</summary>
 
 ### [account](docs/sdks/account/README.md)
 
@@ -74,29 +105,34 @@ run();
 * [deletePaymentMethod](docs/sdks/account/README.md#deletepaymentmethod) - Delete an existing payment method
 
 
-### [payments.loggedIn](docs/sdks/loggedin/README.md)
+### [oAuth](docs/sdks/oauth/README.md)
 
-* [initialize](docs/sdks/loggedin/README.md#initialize) - Initialize a Bolt payment for logged in shoppers
-* [performAction](docs/sdks/loggedin/README.md#performaction) - Finalize a pending payment
-
-### [payments.guest](docs/sdks/guest/README.md)
-
-* [initialize](docs/sdks/guest/README.md#initialize) - Initialize a Bolt payment for guest shoppers
-* [performAction](docs/sdks/guest/README.md#performaction) - Finalize a pending guest payment
+* [getToken](docs/sdks/oauth/README.md#gettoken) - Get OAuth token
 
 ### [orders](docs/sdks/orders/README.md)
 
 * [ordersCreate](docs/sdks/orders/README.md#orderscreate) - Create an order that was prepared outside the Bolt ecosystem.
 
-### [oAuth](docs/sdks/oauth/README.md)
+### [payments](docs/sdks/payments/README.md)
 
-* [getToken](docs/sdks/oauth/README.md#gettoken) - Get OAuth token
+
+#### [payments.guest](docs/sdks/guest/README.md)
+
+* [initialize](docs/sdks/guest/README.md#initialize) - Initialize a Bolt payment for guest shoppers
+* [performAction](docs/sdks/guest/README.md#performaction) - Finalize a pending guest payment
+
+#### [payments.loggedIn](docs/sdks/loggedin/README.md)
+
+* [initialize](docs/sdks/loggedin/README.md#initialize) - Initialize a Bolt payment for logged in shoppers
+* [performAction](docs/sdks/loggedin/README.md#performaction) - Finalize a pending payment
 
 ### [testing](docs/sdks/testing/README.md)
 
 * [createAccount](docs/sdks/testing/README.md#createaccount) - Create a test account
 * [testingAccountPhoneGet](docs/sdks/testing/README.md#testingaccountphoneget) - Get a random phone number
 * [getCreditCard](docs/sdks/testing/README.md#getcreditcard) - Retrieve a tokenized test credit card
+
+</details>
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Error Handling [errors] -->
@@ -104,49 +140,59 @@ run();
 
 All SDK methods return a response object or throw an error. If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Error type.
 
-| Error Object                  | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.AccountGetResponseBody | 4XX                           | application/json              |
-| errors.SDKError               | 4xx-5xx                       | */*                           |
+| Error Object      | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.ErrorT     | 4XX               | application/json  |
+| errors.FieldError | 4XX               | application/json  |
+| errors.SDKError   | 4xx-5xx           | */*               |
 
 Validation errors can also occur when either method arguments or data returned from the server do not match the expected format. The `SDKValidationError` that is thrown as a result will capture the raw value that failed validation in an attribute called `rawValue`. Additionally, a `pretty()` method is available on this error that can be used to log a nicely formatted string since validation errors can list many issues and the plain error string may be difficult read when debugging. 
 
 
 ```typescript
 import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
-import { SDKValidationError } from "@boltpay/bolt-typescript-sdk/models/errors";
+import {
+  ErrorT,
+  FieldError,
+  SDKValidationError,
+} from "@boltpay/bolt-typescript-sdk/models/errors";
 
 const boltTypescriptSDK = new BoltTypescriptSDK({
-    security: {
-        oauth: "<YOUR_OAUTH_HERE>",
-    },
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
 });
 
 async function run() {
-    let result;
-    try {
-        result = await boltTypescriptSDK.account.getDetails("<value>", "<value>");
-    } catch (err) {
-        switch (true) {
-            case err instanceof SDKValidationError: {
-                // Validation errors can be pretty-printed
-                console.error(err.pretty());
-                // Raw value may also be inspected
-                console.error(err.rawValue);
-                return;
-            }
-            case err instanceof errors.AccountGetResponseBody: {
-                console.error(err); // handle exception
-                return;
-            }
-            default: {
-                throw err;
-            }
-        }
-    }
+  let result;
+  try {
+    result = await boltTypescriptSDK.account.getDetails("<value>", "<value>");
 
     // Handle the result
     console.log(result);
+  } catch (err) {
+    switch (true) {
+      case (err instanceof SDKValidationError): {
+        // Validation errors can be pretty-printed
+        console.error(err.pretty());
+        // Raw value may also be inspected
+        console.error(err.rawValue);
+        return;
+      }
+      case (err instanceof ErrorT): {
+        // Handle err.data$: ErrorTData
+        return;
+      }
+      case (err instanceof FieldError): {
+        // Handle err.data$: FieldErrorData
+        return;
+      }
+      default: {
+        throw err;
+      }
+    }
+  }
 }
 
 run();
@@ -169,17 +215,21 @@ You can override the default server globally by passing a server index to the `s
 import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 
 const boltTypescriptSDK = new BoltTypescriptSDK({
-    serverIdx: 0,
-    security: {
-        oauth: "<YOUR_OAUTH_HERE>",
-    },
+  serverIdx: 0,
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
 });
 
 async function run() {
-    const result = await boltTypescriptSDK.account.getDetails("<value>", "<value>");
+  const result = await boltTypescriptSDK.account.getDetails(
+    "<value>",
+    "<value>",
+  );
 
-    // Handle the result
-    console.log(result);
+  // Handle the result
+  console.log(result);
 }
 
 run();
@@ -199,17 +249,21 @@ The default server can also be overridden globally by passing a URL to the `serv
 import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 
 const boltTypescriptSDK = new BoltTypescriptSDK({
-    serverURL: "https://{environment}.bolt.com/v3",
-    security: {
-        oauth: "<YOUR_OAUTH_HERE>",
-    },
+  serverURL: "https://{environment}.bolt.com/v3",
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
 });
 
 async function run() {
-    const result = await boltTypescriptSDK.account.getDetails("<value>", "<value>");
+  const result = await boltTypescriptSDK.account.getDetails(
+    "<value>",
+    "<value>",
+  );
 
-    // Handle the result
-    console.log(result);
+  // Handle the result
+  console.log(result);
 }
 
 run();
@@ -283,16 +337,20 @@ You can set the security parameters through the `security` optional parameter wh
 import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 
 const boltTypescriptSDK = new BoltTypescriptSDK({
-    security: {
-        oauth: "<YOUR_OAUTH_HERE>",
-    },
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
 });
 
 async function run() {
-    const result = await boltTypescriptSDK.account.getDetails("<value>", "<value>");
+  const result = await boltTypescriptSDK.account.getDetails(
+    "<value>",
+    "<value>",
+  );
 
-    // Handle the result
-    console.log(result);
+  // Handle the result
+  console.log(result);
 }
 
 run();
@@ -305,94 +363,117 @@ Some operations in this SDK require the security scheme to be specified at the r
 ```typescript
 import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 import {
-    AddressReferenceIdTag,
-    CreditCardNetwork,
-    Currency,
-    DotTag,
+  AddressReferenceExplicitTag,
+  CountryCode,
+  CreditCardNetwork,
+  Currency,
+  DotTag,
 } from "@boltpay/bolt-typescript-sdk/models/components";
 
 const boltTypescriptSDK = new BoltTypescriptSDK();
 
 async function run() {
-    const result = await boltTypescriptSDK.payments.guest.initialize(
-        "<YOUR_API_KEY_HERE>",
-        "<value>",
-        "<value>",
-        {
-            profile: {
-                createAccount: true,
-                firstName: "Alice",
-                lastName: "Baker",
-                email: "alice@example.com",
-                phone: "+14155550199",
+  const result = await boltTypescriptSDK.payments.guest.initialize(
+    {
+      apiKey: "<YOUR_API_KEY_HERE>",
+    },
+    "<value>",
+    "<value>",
+    {
+      profile: {
+        createAccount: true,
+        firstName: "Alice",
+        lastName: "Baker",
+        email: "alice@example.com",
+        phone: "+14155550199",
+      },
+      cart: {
+        orderReference: "order_100",
+        orderDescription: "Order #1234567890",
+        displayId: "215614191",
+        shipments: [
+          {
+            address: {
+              dotTag: AddressReferenceExplicitTag.Explicit,
+              firstName: "Alice",
+              lastName: "Baker",
+              company: "ACME Corporation",
+              streetAddress1: "535 Mission St, Ste 1401",
+              streetAddress2: "c/o Shipping Department",
+              locality: "San Francisco",
+              postalCode: "94105",
+              region: "CA",
+              countryCode: CountryCode.Us,
+              email: "alice@example.com",
+              phone: "+14155550199",
             },
-            cart: {
-                orderReference: "order_100",
-                orderDescription: "Order #1234567890",
-                displayId: "215614191",
-                shipments: [
-                    {
-                        address: {
-                            dotTag: AddressReferenceIdTag.Id,
-                            id: "D4g3h5tBuVYK9",
-                        },
-                        cost: {
-                            currency: Currency.Usd,
-                            units: 10000,
-                        },
-                        carrier: "FedEx",
-                    },
-                ],
-                discounts: [
-                    {
-                        amount: {
-                            currency: Currency.Usd,
-                            units: 10000,
-                        },
-                        code: "SUMMER10DISCOUNT",
-                        detailsUrl: "https://www.example.com/SUMMER-SALE",
-                    },
-                ],
-                items: [
-                    {
-                        name: "Bolt Swag Bag",
-                        reference: "item_100",
-                        description: "Large tote with Bolt logo.",
-                        totalAmount: {
-                            currency: Currency.Usd,
-                            units: 9000,
-                        },
-                        unitPrice: 1000,
-                        quantity: 9,
-                        imageUrl: "https://www.example.com/products/123456/images/1.png",
-                    },
-                ],
-                total: {
-                    currency: Currency.Usd,
-                    units: 9000,
-                },
-                tax: {
-                    currency: Currency.Usd,
-                    units: 100,
-                },
+            cost: {
+              currency: Currency.Usd,
+              units: 10000,
             },
-            paymentMethod: {
-                dotTag: DotTag.CreditCard,
-                billingAddress: {
-                    dotTag: AddressReferenceIdTag.Id,
-                    id: "D4g3h5tBuVYK9",
-                },
-                network: CreditCardNetwork.Visa,
-                bin: "411111",
-                last4: "1004",
-                expiration: "2025-03",
-                token: "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
+            carrier: "FedEx",
+          },
+        ],
+        discounts: [
+          {
+            amount: {
+              currency: Currency.Usd,
+              units: 10000,
             },
-        }
-    );
+            code: "SUMMER10DISCOUNT",
+            detailsUrl: "https://www.example.com/SUMMER-SALE",
+          },
+        ],
+        items: [
+          {
+            name: "Bolt Swag Bag",
+            reference: "item_100",
+            description: "Large tote with Bolt logo.",
+            totalAmount: {
+              currency: Currency.Usd,
+              units: 9000,
+            },
+            unitPrice: 1000,
+            quantity: 9,
+            imageUrl: "https://www.example.com/products/123456/images/1.png",
+          },
+        ],
+        total: {
+          currency: Currency.Usd,
+          units: 9000,
+        },
+        tax: {
+          currency: Currency.Usd,
+          units: 100,
+        },
+      },
+      paymentMethod: {
+        dotTag: DotTag.CreditCard,
+        billingAddress: {
+          dotTag: AddressReferenceExplicitTag.Explicit,
+          firstName: "Alice",
+          lastName: "Baker",
+          company: "ACME Corporation",
+          streetAddress1: "535 Mission St, Ste 1401",
+          streetAddress2: "c/o Shipping Department",
+          locality: "San Francisco",
+          postalCode: "94105",
+          region: "CA",
+          countryCode: CountryCode.Us,
+          email: "alice@example.com",
+          phone: "+14155550199",
+        },
+        network: CreditCardNetwork.Visa,
+        bin: "411111",
+        last4: "1004",
+        expiration: "2025-03",
+        token: "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
+      },
+    },
+  );
 
-    // Handle the result
-    console.log(result);
+  // Handle the result
+  console.log(result);
 }
 
 run();
@@ -406,6 +487,41 @@ run();
 For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 <!-- End Requirements [requirements] -->
 
+<!-- Start Standalone functions [standalone-funcs] -->
+## Standalone functions
+
+All the methods listed above are available as standalone functions. These
+functions are ideal for use in applications running in the browser, serverless
+runtimes or other environments where application bundle size is a primary
+concern. When using a bundler to build your application, all unused
+functionality will be either excluded from the final bundle or tree-shaken away.
+
+To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
+
+<details>
+
+<summary>Available standalone functions</summary>
+
+- [accountAddAddress](docs/sdks/account/README.md#addaddress)
+- [accountAddPaymentMethod](docs/sdks/account/README.md#addpaymentmethod)
+- [accountDeleteAddress](docs/sdks/account/README.md#deleteaddress)
+- [accountDeletePaymentMethod](docs/sdks/account/README.md#deletepaymentmethod)
+- [accountGetDetails](docs/sdks/account/README.md#getdetails)
+- [accountUpdateAddress](docs/sdks/account/README.md#updateaddress)
+- [oAuthGetToken](docs/sdks/oauth/README.md#gettoken)
+- [ordersOrdersCreate](docs/sdks/orders/README.md#orderscreate)
+- [paymentsGuestInitialize](docs/sdks/guest/README.md#initialize)
+- [paymentsGuestPerformAction](docs/sdks/guest/README.md#performaction)
+- [paymentsLoggedInInitialize](docs/sdks/loggedin/README.md#initialize)
+- [paymentsLoggedInPerformAction](docs/sdks/loggedin/README.md#performaction)
+- [testingCreateAccount](docs/sdks/testing/README.md#createaccount)
+- [testingGetCreditCard](docs/sdks/testing/README.md#getcreditcard)
+- [testingTestingAccountPhoneGet](docs/sdks/testing/README.md#testingaccountphoneget)
+
+
+</details>
+<!-- End Standalone functions [standalone-funcs] -->
+
 <!-- Start Retries [retries] -->
 ## Retries
 
@@ -416,27 +532,32 @@ To change the default retry strategy for a single API call, simply provide a ret
 import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 
 const boltTypescriptSDK = new BoltTypescriptSDK({
-    security: {
-        oauth: "<YOUR_OAUTH_HERE>",
-    },
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
 });
 
 async function run() {
-    const result = await boltTypescriptSDK.account.getDetails("<value>", "<value>", {
-        retries: {
-            strategy: "backoff",
-            backoff: {
-                initialInterval: 1,
-                maxInterval: 50,
-                exponent: 1.1,
-                maxElapsedTime: 100,
-            },
-            retryConnectionErrors: false,
+  const result = await boltTypescriptSDK.account.getDetails(
+    "<value>",
+    "<value>",
+    {
+      retries: {
+        strategy: "backoff",
+        backoff: {
+          initialInterval: 1,
+          maxInterval: 50,
+          exponent: 1.1,
+          maxElapsedTime: 100,
         },
-    });
+        retryConnectionErrors: false,
+      },
+    },
+  );
 
-    // Handle the result
-    console.log(result);
+  // Handle the result
+  console.log(result);
 }
 
 run();
@@ -448,32 +569,53 @@ If you'd like to override the default retry strategy for all operations that sup
 import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 
 const boltTypescriptSDK = new BoltTypescriptSDK({
-    retryConfig: {
-        strategy: "backoff",
-        backoff: {
-            initialInterval: 1,
-            maxInterval: 50,
-            exponent: 1.1,
-            maxElapsedTime: 100,
-        },
-        retryConnectionErrors: false,
+  retryConfig: {
+    strategy: "backoff",
+    backoff: {
+      initialInterval: 1,
+      maxInterval: 50,
+      exponent: 1.1,
+      maxElapsedTime: 100,
     },
-    security: {
-        oauth: "<YOUR_OAUTH_HERE>",
-    },
+    retryConnectionErrors: false,
+  },
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
 });
 
 async function run() {
-    const result = await boltTypescriptSDK.account.getDetails("<value>", "<value>");
+  const result = await boltTypescriptSDK.account.getDetails(
+    "<value>",
+    "<value>",
+  );
 
-    // Handle the result
-    console.log(result);
+  // Handle the result
+  console.log(result);
 }
 
 run();
 
 ```
 <!-- End Retries [retries] -->
+
+<!-- Start Debugging [debug] -->
+## Debugging
+
+You can setup your SDK to emit debug logs for SDK requests and responses.
+
+You can pass a logger that matches `console`'s interface as an SDK option.
+
+> [!WARNING]
+> Beware that debug logging will reveal secrets, like API tokens in headers, in log messages printed to a console or files. It's recommended to use this feature only during local development and not in production.
+
+```typescript
+import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
+
+const sdk = new BoltTypescriptSDK({ debugLogger: console });
+```
+<!-- End Debugging [debug] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 
