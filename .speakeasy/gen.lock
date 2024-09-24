@@ -1,10 +1,10 @@
 lockVersion: 2.0.0
 id: 79fa0df9-852a-493c-b998-1d82654b5f18
 management:
-  docChecksum: 854d678d5e30ebc1211187f4d0e7b3ba
+  docChecksum: 3d058b56d0f6d864256abeb081f99c28
   docVersion: 3.2.1
-  speakeasyVersion: 1.392.1
-  generationVersion: 2.411.9
+  speakeasyVersion: internal
+  generationVersion: 2.422.13
   releaseVersion: 0.20.0
   configChecksum: 7516b47b7e28f18cd0054673796d9e13
   repoURL: https://github.com/BoltApp/Bolt-Typescript-SDK.git
@@ -14,8 +14,9 @@ management:
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.16.4
+    core: 3.17.6
     defaultEnabledRetries: 0.1.0
+    enumUnions: 0.1.0
     envVarSecurityUsage: 0.1.1
     errorUnions: 0.1.1
     flattening: 2.81.1
@@ -349,7 +350,7 @@ examples:
         "200":
           application/json: {"id": "D4g3h5tBuVYK9", "first_name": "Alice", "last_name": "Baker", "company": "ACME Corporation", "street_address1": "535 Mission St, Ste 1401", "street_address2": "c/o Shipping Department", "locality": "San Francisco", "postal_code": "94105", "region": "CA", "country_code": "US", "email": "alice@example.com", "phone": "+14155550199", "is_default": true}
         4XX:
-          application/json: {".tag": "invalid_input_parameter", "message": "We were unable to process your request.", "field": "address.phone"}
+          application/json: {".tag": "unprocessable_request", "message": "We were unable to process your request."}
     missing-input:
       parameters:
         header:
@@ -361,7 +362,7 @@ examples:
         "200":
           application/json: {"id": "D4g3h5tBuVYK9", "first_name": "Alice", "last_name": "Baker", "company": "ACME Corporation", "street_address1": "535 Mission St, Ste 1401", "street_address2": "c/o Shipping Department", "locality": "San Francisco", "postal_code": "94105", "region": "CA", "country_code": "US", "email": "alice@example.com", "phone": "+14155550199", "is_default": true}
         4XX:
-          application/json: {".tag": "unprocessable_request", "message": "We were unable to process your request."}
+          application/json: {".tag": "invalid_input_parameter", "message": "We were unable to process your request.", "field": "address.phone"}
     invalid-input:
       parameters:
         header:
@@ -373,7 +374,7 @@ examples:
         "200":
           application/json: {"id": "D4g3h5tBuVYK9", "first_name": "Alice", "last_name": "Baker", "company": "ACME Corporation", "street_address1": "535 Mission St, Ste 1401", "street_address2": "c/o Shipping Department", "locality": "San Francisco", "postal_code": "94105", "region": "CA", "country_code": "US", "email": "alice@example.com", "phone": "+14155550199", "is_default": true}
         4XX:
-          application/json: {".tag": "invalid_input_parameter", "message": "We were unable to process your request.", "field": "address.phone"}
+          application/json: {".tag": "unprocessable_request", "message": "We were unable to process your request."}
     invalid-postal-code:
       parameters:
         header:
@@ -440,7 +441,7 @@ examples:
         "200":
           application/json: {"id": "D4g3h5tBuVYK9", "first_name": "Alice", "last_name": "Baker", "company": "ACME Corporation", "street_address1": "535 Mission St, Ste 1401", "street_address2": "c/o Shipping Department", "locality": "San Francisco", "postal_code": "94105", "region": "CA", "country_code": "US", "email": "alice@example.com", "phone": "+14155550199", "is_default": true}
         4XX:
-          application/json: {".tag": "unprocessable_request", "message": "We were unable to process your request."}
+          application/json: {".tag": "invalid_input_parameter", "message": "We were unable to process your request.", "field": "address.phone"}
     invalid-input:
       parameters:
         path:
@@ -468,7 +469,7 @@ examples:
         "200":
           application/json: {"id": "D4g3h5tBuVYK9", "first_name": "Alice", "last_name": "Baker", "company": "ACME Corporation", "street_address1": "535 Mission St, Ste 1401", "street_address2": "c/o Shipping Department", "locality": "San Francisco", "postal_code": "94105", "region": "CA", "country_code": "US", "email": "alice@example.com", "phone": "+14155550199", "is_default": true}
         4XX:
-          application/json: {".tag": "invalid_input_parameter", "message": "We were unable to process your request.", "field": "address.phone"}
+          application/json: {".tag": "unprocessable_request", "message": "We were unable to process your request."}
     invalid-region:
       parameters:
         path:
@@ -506,7 +507,7 @@ examples:
         "200":
           application/json: {".tag": "klarna"}
         4XX:
-          application/json: {".tag": "unprocessable_request", "message": "We were unable to process your request."}
+          application/json: {".tag": "invalid_input_parameter", "message": "We were unable to process your request.", "field": "address.phone"}
     credit-card-address-reference-explicit:
       parameters:
         header:
@@ -518,7 +519,7 @@ examples:
         "200":
           application/json: {".tag": "credit_card", "id": "X5h6j8uLpVGK", "billing_address": {".tag": "id", "id": "D4g3h5tBuVYK9"}, "network": "visa", "last4": "1004", "expiration": "2029-03"}
         4XX:
-          application/json: {".tag": "declined_invalid_cvv", "message": "The payment was declined because the CVV is not valid"}
+          application/json: {".tag": "unprocessable_request", "message": "We were unable to process your request."}
     missing-input:
       parameters:
         header:
@@ -530,7 +531,7 @@ examples:
         "200":
           application/json: {".tag": "klarna_account"}
         4XX:
-          application/json: {".tag": "unprocessable_request", "message": "We were unable to process your request."}
+          application/json: {".tag": "invalid_input_parameter", "message": "We were unable to process your request.", "field": "address.phone"}
     invalid-input:
       parameters:
         header:
@@ -542,7 +543,7 @@ examples:
         "200":
           application/json: {".tag": "affirm"}
         4XX:
-          application/json: {".tag": "invalid_input_parameter", "message": "We were unable to process your request.", "field": "address.phone"}
+          application/json: {".tag": "unprocessable_request", "message": "We were unable to process your request."}
     invalid-credit-card:
       parameters:
         header:
@@ -554,7 +555,7 @@ examples:
         "200":
           application/json: {".tag": "klarna"}
         4XX:
-          application/json: {".tag": "declined_invalid_cvv", "message": "The payment was declined because the CVV is not valid"}
+          application/json: {".tag": "invalid_input_parameter", "message": "We were unable to process your request.", "field": "address.phone"}
   accountPaymentMethodDelete:
     speakeasy-default-account-payment-method-delete:
       parameters:
@@ -590,7 +591,7 @@ examples:
         "200":
           application/json: {".tag": "pending", "id": "iKv7t5bgt1gg", "status": "awaiting_user_confirmation", "action": "redirect", "url": "www.example.com/payments/finalize"}
         4XX:
-          application/json: {".tag": "payment_already_exists", "message": "A payment for this order already exists"}
+          application/json: {".tag": "unprocessable_request", "message": "We were unable to process your request."}
     paypal:
       parameters:
         header:
@@ -602,7 +603,7 @@ examples:
         "200":
           application/json: {".tag": "finalized", "id": "iKv7t5bgt1gg", "status": "success", "transaction": {"reference": "OBYG-X1PX-FN55", "authorizations": []}}
         4XX:
-          application/json: {".tag": "declined_invalid_cvv", "message": "The payment was declined because the CVV is not valid"}
+          application/json: {".tag": "invalid_input_parameter", "message": "We were unable to process your request.", "field": "address.phone"}
     finalized:
       parameters:
         header:
@@ -638,7 +639,7 @@ examples:
         "200":
           application/json: {".tag": "finalized", "id": "iKv7t5bgt1gg", "status": "success", "transaction": {"reference": "OBYG-X1PX-FN55", "authorizations": []}}
         4XX:
-          application/json: {".tag": "declined_invalid_cvv", "message": "The payment was declined because the CVV is not valid"}
+          application/json: {".tag": "unprocessable_request", "message": "We were unable to process your request."}
     invalid-cart:
       parameters:
         header:
@@ -702,7 +703,7 @@ examples:
         "200":
           application/json: {".tag": "finalized", "id": "iKv7t5bgt1gg", "status": "success", "transaction": {"reference": "OBYG-X1PX-FN55", "authorizations": []}}
         4XX:
-          application/json: {".tag": "payment_already_exists", "message": "A payment for this order already exists"}
+          application/json: {".tag": "unprocessable_request", "message": "We were unable to process your request."}
     finalized:
       parameters:
         header:
@@ -738,7 +739,7 @@ examples:
         "200":
           application/json: {".tag": "finalized", "id": "iKv7t5bgt1gg", "status": "success", "transaction": {"reference": "OBYG-X1PX-FN55", "authorizations": []}}
         4XX:
-          application/json: {".tag": "declined_invalid_cvv", "message": "The payment was declined because the CVV is not valid"}
+          application/json: {".tag": "invalid_input_parameter", "message": "We were unable to process your request.", "field": "address.phone"}
     invalid-cart:
       parameters:
         header:
@@ -750,7 +751,7 @@ examples:
         "200":
           application/json: {".tag": "finalized", "id": "iKv7t5bgt1gg", "status": "success", "transaction": {"reference": "OBYG-X1PX-FN55", "authorizations": []}}
         4XX:
-          application/json: {".tag": "declined_invalid_cvv", "message": "The payment was declined because the CVV is not valid"}
+          application/json: {".tag": "unprocessable_request", "message": "We were unable to process your request."}
     invalid-credit-card:
       parameters:
         header:
@@ -777,7 +778,7 @@ examples:
         "200":
           application/json: {".tag": "finalized", "id": "iKv7t5bgt1gg", "status": "success", "transaction": {"reference": "OBYG-X1PX-FN55", "authorizations": []}}
         4XX:
-          application/json: {".tag": "invalid_input_parameter", "message": "We were unable to process your request.", "field": "address.phone"}
+          application/json: {".tag": "unprocessable_request", "message": "We were unable to process your request."}
   ordersCreate:
     reference:
       parameters:

@@ -32,9 +32,9 @@ const boltTypescriptSDK = new BoltTypescriptSDK({
 
 async function run() {
   const result = await boltTypescriptSDK.account.getDetails("<value>", "<value>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -67,7 +67,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -127,9 +127,9 @@ async function run() {
     email: "alice@example.com",
     phone: "+14155550199",
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -175,7 +175,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -236,9 +236,9 @@ async function run() {
     email: "alice@example.com",
     phone: "+14155550199",
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -284,7 +284,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -333,9 +333,9 @@ const boltTypescriptSDK = new BoltTypescriptSDK({
 
 async function run() {
   const result = await boltTypescriptSDK.account.deleteAddress("D4g3h5tBuVYK9", "<value>", "<value>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -368,7 +368,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -428,9 +428,9 @@ async function run() {
     expiration: "2025-03",
     token: "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -475,7 +475,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -524,9 +524,9 @@ const boltTypescriptSDK = new BoltTypescriptSDK({
 
 async function run() {
   const result = await boltTypescriptSDK.account.deletePaymentMethod("D4g3h5tBuVYK9", "<value>", "<value>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -559,7 +559,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();

@@ -33,9 +33,9 @@ async function run() {
     hasAddress: true,
     hasCreditCard: true,
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -72,7 +72,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -117,9 +117,9 @@ async function run() {
   const result = await boltTypescriptSDK.testing.testingAccountPhoneGet({
     apiKey: "<YOUR_API_KEY_HERE>",
   }, "<value>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -149,7 +149,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -196,9 +196,9 @@ async function run() {
   }, {
     apiKey: "<YOUR_API_KEY_HERE>",
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -231,7 +231,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();

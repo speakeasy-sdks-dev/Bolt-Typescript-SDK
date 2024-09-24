@@ -3,11 +3,22 @@
 ## Example Usage
 
 ```typescript
-import { AddressReference, AddressReferenceIdTag } from "@boltpay/bolt-typescript-sdk/models/components";
+import { AddressReference, AddressReferenceExplicitTag, CountryCode } from "@boltpay/bolt-typescript-sdk/models/components";
 
 let value: AddressReference = {
-    dotTag: AddressReferenceIdTag.Id,
-    id: "D4g3h5tBuVYK9",
+  dotTag: AddressReferenceExplicitTag.Explicit,
+  id: "D4g3h5tBuVYK9",
+  firstName: "Alice",
+  lastName: "Baker",
+  company: "ACME Corporation",
+  streetAddress1: "535 Mission St, Ste 1401",
+  streetAddress2: "c/o Shipping Department",
+  locality: "San Francisco",
+  postalCode: "94105",
+  region: "CA",
+  countryCode: CountryCode.Us,
+  email: "alice@example.com",
+  phone: "+14155550199",
 };
 ```
 

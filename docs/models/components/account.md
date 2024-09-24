@@ -3,37 +3,37 @@
 ## Example Usage
 
 ```typescript
-import { Account, CountryCode, PaymentMethodAffirmTag } from "@boltpay/bolt-typescript-sdk/models/components";
+import { Account, CountryCode, PaymentMethodPaypalTag } from "@boltpay/bolt-typescript-sdk/models/components";
 
 let value: Account = {
-    addresses: [
-        {
-            id: "D4g3h5tBuVYK9",
-            firstName: "Alice",
-            lastName: "Baker",
-            company: "ACME Corporation",
-            streetAddress1: "535 Mission St, Ste 1401",
-            streetAddress2: "c/o Shipping Department",
-            locality: "San Francisco",
-            postalCode: "94105",
-            region: "CA",
-            countryCode: CountryCode.Us,
-            email: "alice@example.com",
-            phone: "+14155550199",
-            isDefault: true,
-        },
-    ],
-    paymentMethods: [
-        {
-            dotTag: PaymentMethodAffirmTag.Affirm,
-        },
-    ],
-    profile: {
-        firstName: "Alice",
-        lastName: "Baker",
-        email: "alice@example.com",
-        phone: "+14155550199",
+  addresses: [
+    {
+      id: "D4g3h5tBuVYK9",
+      firstName: "Alice",
+      lastName: "Baker",
+      company: "ACME Corporation",
+      streetAddress1: "535 Mission St, Ste 1401",
+      streetAddress2: "c/o Shipping Department",
+      locality: "San Francisco",
+      postalCode: "94105",
+      region: "CA",
+      countryCode: CountryCode.Us,
+      email: "alice@example.com",
+      phone: "+14155550199",
+      isDefault: true,
     },
+  ],
+  paymentMethods: [
+    {
+      dotTag: PaymentMethodPaypalTag.Paypal,
+    },
+  ],
+  profile: {
+    firstName: "Alice",
+    lastName: "Baker",
+    email: "alice@example.com",
+    phone: "+14155550199",
+  },
 };
 ```
 
