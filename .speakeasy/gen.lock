@@ -42,15 +42,19 @@ generatedFiles:
   - USAGE.md
   - docs/lib/utils/retryconfig.md
   - docs/models/components/account.md
+  - docs/models/components/accounttestcreationdata.md
   - docs/models/components/accounttestcreationdataoutput.md
   - docs/models/components/accounttestphonedata.md
   - docs/models/components/action.md
   - docs/models/components/addresslisting.md
+  - docs/models/components/addresslistinginput.md
   - docs/models/components/addressreference.md
   - docs/models/components/addressreferenceexplicit.md
+  - docs/models/components/addressreferenceexplicitinput.md
   - docs/models/components/addressreferenceexplicittag.md
   - docs/models/components/addressreferenceid.md
   - docs/models/components/addressreferenceidtag.md
+  - docs/models/components/addressreferenceinput.md
   - docs/models/components/amount.md
   - docs/models/components/authorizationcoderequest.md
   - docs/models/components/cart.md
@@ -71,18 +75,26 @@ generatedFiles:
   - docs/models/components/paymentactionrequesttag.md
   - docs/models/components/paymentinitializerequest.md
   - docs/models/components/paymentmethod.md
+  - docs/models/components/paymentmethodaffirm.md
   - docs/models/components/paymentmethodaffirmoutput.md
   - docs/models/components/paymentmethodaffirmtag.md
+  - docs/models/components/paymentmethodafterpay.md
   - docs/models/components/paymentmethodafterpayoutput.md
   - docs/models/components/paymentmethodafterpaytag.md
   - docs/models/components/paymentmethodcreditcard.md
+  - docs/models/components/paymentmethodcreditcardinput.md
   - docs/models/components/paymentmethodextended.md
+  - docs/models/components/paymentmethodinput.md
+  - docs/models/components/paymentmethodklarna.md
+  - docs/models/components/paymentmethodklarnaaccount.md
   - docs/models/components/paymentmethodklarnaaccountoutput.md
   - docs/models/components/paymentmethodklarnaaccounttag.md
   - docs/models/components/paymentmethodklarnaoutput.md
+  - docs/models/components/paymentmethodklarnapaynow.md
   - docs/models/components/paymentmethodklarnapaynowoutput.md
   - docs/models/components/paymentmethodklarnapaynowtag.md
   - docs/models/components/paymentmethodklarnatag.md
+  - docs/models/components/paymentmethodpaypal.md
   - docs/models/components/paymentmethodpaypaloutput.md
   - docs/models/components/paymentmethodpaypaltag.md
   - docs/models/components/paymentmethodreference.md

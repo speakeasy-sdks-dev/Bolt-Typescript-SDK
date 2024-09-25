@@ -1,11 +1,12 @@
 # PaymentResponse
 
-## Example Usage
+
+## Supported Types
+
+### `components.PaymentResponseFinalized`
 
 ```typescript
-import { PaymentResponse, PaymentResponseFinalizedTag, Status } from "@boltpay/bolt-typescript-sdk/models/components";
-
-let value: PaymentResponse = {
+const value: components.PaymentResponseFinalized = {
   dotTag: PaymentResponseFinalizedTag.Finalized,
   id: "iKv7t5bgt1gg",
   status: Status.Success,
@@ -20,17 +21,15 @@ let value: PaymentResponse = {
 };
 ```
 
-## Supported Types
-
-### `components.PaymentResponseFinalized`
-
-```typescript
-const value: components.PaymentResponseFinalized = /* values here */
-```
-
 ### `components.PaymentResponsePending`
 
 ```typescript
-const value: components.PaymentResponsePending = /* values here */
+const value: components.PaymentResponsePending = {
+  dotTag: PaymentResponsePendingTag.Pending,
+  id: "iKv7t5bgt1gg",
+  status: PaymentResponsePendingStatus.AwaitingUserConfirmation,
+  action: Action.Redirect,
+  url: "www.example.com/payments/finalize",
+};
 ```
 

@@ -32,14 +32,6 @@ export type CreditCardErrorData = {
    * Raw HTTP response; suitable for custom response parsing
    */
   rawResponse?: Response | undefined;
-  /**
-   * Raw HTTP response; suitable for custom response parsing
-   */
-  rawResponse1?: Response | undefined;
-  /**
-   * Raw HTTP response; suitable for custom response parsing
-   */
-  rawResponse2?: Response | undefined;
 };
 
 export class CreditCardError extends Error {
@@ -51,14 +43,6 @@ export class CreditCardError extends Error {
    * Raw HTTP response; suitable for custom response parsing
    */
   rawResponse?: Response | undefined;
-  /**
-   * Raw HTTP response; suitable for custom response parsing
-   */
-  rawResponse1?: Response | undefined;
-  /**
-   * Raw HTTP response; suitable for custom response parsing
-   */
-  rawResponse2?: Response | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: CreditCardErrorData;
@@ -72,8 +56,6 @@ export class CreditCardError extends Error {
 
     this.dotTag = err.dotTag;
     if (err.rawResponse != null) this.rawResponse = err.rawResponse;
-    if (err.rawResponse1 != null) this.rawResponse1 = err.rawResponse1;
-    if (err.rawResponse2 != null) this.rawResponse2 = err.rawResponse2;
 
     this.name = "CreditCardError";
   }
@@ -109,15 +91,11 @@ export const CreditCardError$inboundSchema: z.ZodType<
   ".tag": SchemasCreditCardErrorTag$inboundSchema,
   message: z.string(),
   RawResponse: z.instanceof(Response).optional(),
-  RawResponse1: z.instanceof(Response).optional(),
-  RawResponse2: z.instanceof(Response).optional(),
 })
   .transform((v) => {
     const remapped = remap$(v, {
       ".tag": "dotTag",
       "RawResponse": "rawResponse",
-      "RawResponse1": "rawResponse1",
-      "RawResponse2": "rawResponse2",
     });
 
     return new CreditCardError(remapped);
@@ -128,8 +106,6 @@ export type CreditCardError$Outbound = {
   ".tag": string;
   message: string;
   RawResponse?: never | undefined;
-  RawResponse1?: never | undefined;
-  RawResponse2?: never | undefined;
 };
 
 /** @internal */
@@ -146,18 +122,10 @@ export const CreditCardError$outboundSchema: z.ZodType<
       rawResponse: z.instanceof(Response).transform(() => {
         throw new Error("Response cannot be serialized");
       }).optional(),
-      rawResponse1: z.instanceof(Response).transform(() => {
-        throw new Error("Response cannot be serialized");
-      }).optional(),
-      rawResponse2: z.instanceof(Response).transform(() => {
-        throw new Error("Response cannot be serialized");
-      }).optional(),
     }).transform((v) => {
       return remap$(v, {
         dotTag: ".tag",
         rawResponse: "RawResponse",
-        rawResponse1: "RawResponse1",
-        rawResponse2: "RawResponse2",
       });
     }),
   );

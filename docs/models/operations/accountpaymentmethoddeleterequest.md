@@ -8,7 +8,7 @@ import { AccountPaymentMethodDeleteRequest } from "@boltpay/bolt-typescript-sdk/
 let value: AccountPaymentMethodDeleteRequest = {
   id: "D4g3h5tBuVYK9",
   xPublishableKey: "<value>",
-  xMerchantClientId: "<value>",
+  xMerchantClientId: "<id>",
 };
 ```
 

@@ -8,7 +8,7 @@ import { OrdersCreateRequest } from "@boltpay/bolt-typescript-sdk/models/operati
 
 let value: OrdersCreateRequest = {
   xPublishableKey: "<value>",
-  xMerchantClientId: "<value>",
+  xMerchantClientId: "<id>",
   order: {
     profile: {
       firstName: "Alice",

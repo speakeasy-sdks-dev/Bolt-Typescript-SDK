@@ -9,7 +9,7 @@ import { AccountAddressEditRequest } from "@boltpay/bolt-typescript-sdk/models/o
 let value: AccountAddressEditRequest = {
   id: "D4g3h5tBuVYK9",
   xPublishableKey: "<value>",
-  xMerchantClientId: "<value>",
+  xMerchantClientId: "<id>",
   addressListing: {
     firstName: "Alice",
     lastName: "Baker",

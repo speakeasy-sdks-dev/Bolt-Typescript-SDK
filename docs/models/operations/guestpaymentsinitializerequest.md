@@ -8,7 +8,7 @@ import { GuestPaymentsInitializeRequest } from "@boltpay/bolt-typescript-sdk/mod
 
 let value: GuestPaymentsInitializeRequest = {
   xPublishableKey: "<value>",
-  xMerchantClientId: "<value>",
+  xMerchantClientId: "<id>",
   guestPaymentInitializeRequest: {
     profile: {
       createAccount: true,

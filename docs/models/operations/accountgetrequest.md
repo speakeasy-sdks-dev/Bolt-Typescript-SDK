@@ -7,7 +7,7 @@ import { AccountGetRequest } from "@boltpay/bolt-typescript-sdk/models/operation
 
 let value: AccountGetRequest = {
   xPublishableKey: "<value>",
-  xMerchantClientId: "<value>",
+  xMerchantClientId: "<id>",
 };
 ```
 

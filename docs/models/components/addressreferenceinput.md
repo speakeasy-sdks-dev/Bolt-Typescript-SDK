@@ -1,4 +1,4 @@
-# AddressReference
+# AddressReferenceInput
 
 
 ## Supported Types
@@ -12,12 +12,11 @@ const value: components.AddressReferenceId = {
 };
 ```
 
-### `components.AddressReferenceExplicit`
+### `components.AddressReferenceExplicitInput`
 
 ```typescript
-const value: components.AddressReferenceExplicit = {
+const value: components.AddressReferenceExplicitInput = {
   dotTag: AddressReferenceExplicitTag.Explicit,
-  id: "D4g3h5tBuVYK9",
   firstName: "Alice",
   lastName: "Baker",
   company: "ACME Corporation",

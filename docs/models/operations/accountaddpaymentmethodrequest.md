@@ -8,7 +8,7 @@ import { AccountAddPaymentMethodRequest } from "@boltpay/bolt-typescript-sdk/mod
 
 let value: AccountAddPaymentMethodRequest = {
   xPublishableKey: "<value>",
-  xMerchantClientId: "<value>",
+  xMerchantClientId: "<id>",
   paymentMethod: {
     dotTag: PaymentMethodAffirmTag.Affirm,
     returnUrl: "www.example.com/handle_affirm_success",

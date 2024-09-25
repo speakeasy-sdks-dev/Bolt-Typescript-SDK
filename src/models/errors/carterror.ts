@@ -26,10 +26,6 @@ export type CartErrorData = {
    * Raw HTTP response; suitable for custom response parsing
    */
   rawResponse?: Response | undefined;
-  /**
-   * Raw HTTP response; suitable for custom response parsing
-   */
-  rawResponse1?: Response | undefined;
 };
 
 export class CartError extends Error {
@@ -41,10 +37,6 @@ export class CartError extends Error {
    * Raw HTTP response; suitable for custom response parsing
    */
   rawResponse?: Response | undefined;
-  /**
-   * Raw HTTP response; suitable for custom response parsing
-   */
-  rawResponse1?: Response | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: CartErrorData;
@@ -58,7 +50,6 @@ export class CartError extends Error {
 
     this.dotTag = err.dotTag;
     if (err.rawResponse != null) this.rawResponse = err.rawResponse;
-    if (err.rawResponse1 != null) this.rawResponse1 = err.rawResponse1;
 
     this.name = "CartError";
   }
@@ -94,13 +85,11 @@ export const CartError$inboundSchema: z.ZodType<
   ".tag": SchemasCartErrorTag$inboundSchema,
   message: z.string(),
   RawResponse: z.instanceof(Response).optional(),
-  RawResponse1: z.instanceof(Response).optional(),
 })
   .transform((v) => {
     const remapped = remap$(v, {
       ".tag": "dotTag",
       "RawResponse": "rawResponse",
-      "RawResponse1": "rawResponse1",
     });
 
     return new CartError(remapped);
@@ -111,7 +100,6 @@ export type CartError$Outbound = {
   ".tag": string;
   message: string;
   RawResponse?: never | undefined;
-  RawResponse1?: never | undefined;
 };
 
 /** @internal */
@@ -128,14 +116,10 @@ export const CartError$outboundSchema: z.ZodType<
       rawResponse: z.instanceof(Response).transform(() => {
         throw new Error("Response cannot be serialized");
       }).optional(),
-      rawResponse1: z.instanceof(Response).transform(() => {
-        throw new Error("Response cannot be serialized");
-      }).optional(),
     }).transform((v) => {
       return remap$(v, {
         dotTag: ".tag",
         rawResponse: "RawResponse",
-        rawResponse1: "RawResponse1",
       });
     }),
   );

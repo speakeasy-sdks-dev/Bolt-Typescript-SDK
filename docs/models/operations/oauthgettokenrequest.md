@@ -7,7 +7,7 @@ import { RefreshTokenRequestGrantType, RefreshTokenRequestScope } from "@boltpay
 import { OauthGetTokenRequest } from "@boltpay/bolt-typescript-sdk/models/operations";
 
 let value: OauthGetTokenRequest = {
-  xMerchantClientId: "<value>",
+  xMerchantClientId: "<id>",
   tokenRequest: {
     grantType: RefreshTokenRequestGrantType.RefreshToken,
     refreshToken:

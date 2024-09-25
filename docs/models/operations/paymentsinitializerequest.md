@@ -8,7 +8,7 @@ import { PaymentsInitializeRequest } from "@boltpay/bolt-typescript-sdk/models/o
 
 let value: PaymentsInitializeRequest = {
   xPublishableKey: "<value>",
-  xMerchantClientId: "<value>",
+  xMerchantClientId: "<id>",
   paymentInitializeRequest: {
     cart: {
       orderReference: "order_100",

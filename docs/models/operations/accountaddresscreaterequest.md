@@ -8,7 +8,7 @@ import { AccountAddressCreateRequest } from "@boltpay/bolt-typescript-sdk/models
 
 let value: AccountAddressCreateRequest = {
   xPublishableKey: "<value>",
-  xMerchantClientId: "<value>",
+  xMerchantClientId: "<id>",
   addressListing: {
     firstName: "Alice",
     lastName: "Baker",
