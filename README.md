@@ -68,17 +68,20 @@ yarn add @boltpay/bolt-typescript-sdk zod
 import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 
 const boltTypescriptSDK = new BoltTypescriptSDK({
-    security: {
-        oauth: "<YOUR_OAUTH_HERE>",
-        apiKey: "<YOUR_API_KEY_HERE>",
-    },
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
 });
 
 async function run() {
-    const result = await boltTypescriptSDK.account.getDetails("<value>", "<value>");
+  const result = await boltTypescriptSDK.account.getDetails(
+    "<value>",
+    "<value>",
+  );
 
-    // Handle the result
-    console.log(result);
+  // Handle the result
+  console.log(result);
 }
 
 run();
@@ -88,6 +91,9 @@ run();
 
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
+
+<details open>
+<summary>Available methods</summary>
 
 ### [account](docs/sdks/account/README.md)
 
@@ -99,29 +105,34 @@ run();
 * [deletePaymentMethod](docs/sdks/account/README.md#deletepaymentmethod) - Delete an existing payment method
 
 
-### [payments.loggedIn](docs/sdks/loggedin/README.md)
+### [oAuth](docs/sdks/oauth/README.md)
 
-* [initialize](docs/sdks/loggedin/README.md#initialize) - Initialize a Bolt payment for logged in shoppers
-* [performAction](docs/sdks/loggedin/README.md#performaction) - Finalize a pending payment
-
-### [payments.guest](docs/sdks/guest/README.md)
-
-* [initialize](docs/sdks/guest/README.md#initialize) - Initialize a Bolt payment for guest shoppers
-* [performAction](docs/sdks/guest/README.md#performaction) - Finalize a pending guest payment
+* [getToken](docs/sdks/oauth/README.md#gettoken) - Get OAuth token
 
 ### [orders](docs/sdks/orders/README.md)
 
 * [ordersCreate](docs/sdks/orders/README.md#orderscreate) - Create an order that was prepared outside the Bolt ecosystem.
 
-### [oAuth](docs/sdks/oauth/README.md)
+### [payments](docs/sdks/payments/README.md)
 
-* [getToken](docs/sdks/oauth/README.md#gettoken) - Get OAuth token
+
+#### [payments.guest](docs/sdks/guest/README.md)
+
+* [initialize](docs/sdks/guest/README.md#initialize) - Initialize a Bolt payment for guest shoppers
+* [performAction](docs/sdks/guest/README.md#performaction) - Finalize a pending guest payment
+
+#### [payments.loggedIn](docs/sdks/loggedin/README.md)
+
+* [initialize](docs/sdks/loggedin/README.md#initialize) - Initialize a Bolt payment for logged in shoppers
+* [performAction](docs/sdks/loggedin/README.md#performaction) - Finalize a pending payment
 
 ### [testing](docs/sdks/testing/README.md)
 
 * [createAccount](docs/sdks/testing/README.md#createaccount) - Create a test account
 * [testingAccountPhoneGet](docs/sdks/testing/README.md#testingaccountphoneget) - Get a random phone number
 * [getCreditCard](docs/sdks/testing/README.md#getcreditcard) - Retrieve a tokenized test credit card
+
+</details>
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Error Handling [errors] -->
@@ -140,44 +151,48 @@ Validation errors can also occur when either method arguments or data returned f
 
 ```typescript
 import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
-import { ErrorT, FieldError, SDKValidationError } from "@boltpay/bolt-typescript-sdk/models/errors";
+import {
+  ErrorT,
+  FieldError,
+  SDKValidationError,
+} from "@boltpay/bolt-typescript-sdk/models/errors";
 
 const boltTypescriptSDK = new BoltTypescriptSDK({
-    security: {
-        oauth: "<YOUR_OAUTH_HERE>",
-        apiKey: "<YOUR_API_KEY_HERE>",
-    },
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
 });
 
 async function run() {
-    let result;
-    try {
-        result = await boltTypescriptSDK.account.getDetails("<value>", "<value>");
+  let result;
+  try {
+    result = await boltTypescriptSDK.account.getDetails("<value>", "<value>");
 
-        // Handle the result
-        console.log(result);
-    } catch (err) {
-        switch (true) {
-            case err instanceof SDKValidationError: {
-                // Validation errors can be pretty-printed
-                console.error(err.pretty());
-                // Raw value may also be inspected
-                console.error(err.rawValue);
-                return;
-            }
-            case err instanceof ErrorT: {
-                // Handle err.data$: ErrorTData
-                return;
-            }
-            case err instanceof FieldError: {
-                // Handle err.data$: FieldErrorData
-                return;
-            }
-            default: {
-                throw err;
-            }
-        }
+    // Handle the result
+    console.log(result);
+  } catch (err) {
+    switch (true) {
+      case (err instanceof SDKValidationError): {
+        // Validation errors can be pretty-printed
+        console.error(err.pretty());
+        // Raw value may also be inspected
+        console.error(err.rawValue);
+        return;
+      }
+      case (err instanceof ErrorT): {
+        // Handle err.data$: ErrorTData
+        return;
+      }
+      case (err instanceof FieldError): {
+        // Handle err.data$: FieldErrorData
+        return;
+      }
+      default: {
+        throw err;
+      }
     }
+  }
 }
 
 run();
@@ -200,18 +215,21 @@ You can override the default server globally by passing a server index to the `s
 import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 
 const boltTypescriptSDK = new BoltTypescriptSDK({
-    serverIdx: 0,
-    security: {
-        oauth: "<YOUR_OAUTH_HERE>",
-        apiKey: "<YOUR_API_KEY_HERE>",
-    },
+  serverIdx: 0,
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
 });
 
 async function run() {
-    const result = await boltTypescriptSDK.account.getDetails("<value>", "<value>");
+  const result = await boltTypescriptSDK.account.getDetails(
+    "<value>",
+    "<value>",
+  );
 
-    // Handle the result
-    console.log(result);
+  // Handle the result
+  console.log(result);
 }
 
 run();
@@ -231,18 +249,21 @@ The default server can also be overridden globally by passing a URL to the `serv
 import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 
 const boltTypescriptSDK = new BoltTypescriptSDK({
-    serverURL: "https://{environment}.bolt.com/v3",
-    security: {
-        oauth: "<YOUR_OAUTH_HERE>",
-        apiKey: "<YOUR_API_KEY_HERE>",
-    },
+  serverURL: "https://{environment}.bolt.com/v3",
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
 });
 
 async function run() {
-    const result = await boltTypescriptSDK.account.getDetails("<value>", "<value>");
+  const result = await boltTypescriptSDK.account.getDetails(
+    "<value>",
+    "<value>",
+  );
 
-    // Handle the result
-    console.log(result);
+  // Handle the result
+  console.log(result);
 }
 
 run();
@@ -316,17 +337,20 @@ You can set the security parameters through the `security` optional parameter wh
 import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 
 const boltTypescriptSDK = new BoltTypescriptSDK({
-    security: {
-        oauth: "<YOUR_OAUTH_HERE>",
-        apiKey: "<YOUR_API_KEY_HERE>",
-    },
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
 });
 
 async function run() {
-    const result = await boltTypescriptSDK.account.getDetails("<value>", "<value>");
+  const result = await boltTypescriptSDK.account.getDetails(
+    "<value>",
+    "<value>",
+  );
 
-    // Handle the result
-    console.log(result);
+  // Handle the result
+  console.log(result);
 }
 
 run();
@@ -339,117 +363,117 @@ Some operations in this SDK require the security scheme to be specified at the r
 ```typescript
 import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 import {
-    AddressReferenceExplicitTag,
-    CountryCode,
-    CreditCardNetwork,
-    Currency,
-    DotTag,
+  AddressReferenceExplicitTag,
+  CountryCode,
+  CreditCardNetwork,
+  Currency,
+  DotTag,
 } from "@boltpay/bolt-typescript-sdk/models/components";
 
 const boltTypescriptSDK = new BoltTypescriptSDK();
 
 async function run() {
-    const result = await boltTypescriptSDK.payments.guest.initialize(
-        {
-            apiKey: "<YOUR_API_KEY_HERE>",
+  const result = await boltTypescriptSDK.payments.guest.initialize(
+    {
+      apiKey: "<YOUR_API_KEY_HERE>",
+    },
+    "<value>",
+    "<value>",
+    {
+      profile: {
+        createAccount: true,
+        firstName: "Alice",
+        lastName: "Baker",
+        email: "alice@example.com",
+        phone: "+14155550199",
+      },
+      cart: {
+        orderReference: "order_100",
+        orderDescription: "Order #1234567890",
+        displayId: "215614191",
+        shipments: [
+          {
+            address: {
+              dotTag: AddressReferenceExplicitTag.Explicit,
+              firstName: "Alice",
+              lastName: "Baker",
+              company: "ACME Corporation",
+              streetAddress1: "535 Mission St, Ste 1401",
+              streetAddress2: "c/o Shipping Department",
+              locality: "San Francisco",
+              postalCode: "94105",
+              region: "CA",
+              countryCode: CountryCode.Us,
+              email: "alice@example.com",
+              phone: "+14155550199",
+            },
+            cost: {
+              currency: Currency.Usd,
+              units: 10000,
+            },
+            carrier: "FedEx",
+          },
+        ],
+        discounts: [
+          {
+            amount: {
+              currency: Currency.Usd,
+              units: 10000,
+            },
+            code: "SUMMER10DISCOUNT",
+            detailsUrl: "https://www.example.com/SUMMER-SALE",
+          },
+        ],
+        items: [
+          {
+            name: "Bolt Swag Bag",
+            reference: "item_100",
+            description: "Large tote with Bolt logo.",
+            totalAmount: {
+              currency: Currency.Usd,
+              units: 9000,
+            },
+            unitPrice: 1000,
+            quantity: 9,
+            imageUrl: "https://www.example.com/products/123456/images/1.png",
+          },
+        ],
+        total: {
+          currency: Currency.Usd,
+          units: 9000,
         },
-        "<value>",
-        "<value>",
-        {
-            profile: {
-                createAccount: true,
-                firstName: "Alice",
-                lastName: "Baker",
-                email: "alice@example.com",
-                phone: "+14155550199",
-            },
-            cart: {
-                orderReference: "order_100",
-                orderDescription: "Order #1234567890",
-                displayId: "215614191",
-                shipments: [
-                    {
-                        address: {
-                            dotTag: AddressReferenceExplicitTag.Explicit,
-                            firstName: "Alice",
-                            lastName: "Baker",
-                            company: "ACME Corporation",
-                            streetAddress1: "535 Mission St, Ste 1401",
-                            streetAddress2: "c/o Shipping Department",
-                            locality: "San Francisco",
-                            postalCode: "94105",
-                            region: "CA",
-                            countryCode: CountryCode.Us,
-                            email: "alice@example.com",
-                            phone: "+14155550199",
-                        },
-                        cost: {
-                            currency: Currency.Usd,
-                            units: 10000,
-                        },
-                        carrier: "FedEx",
-                    },
-                ],
-                discounts: [
-                    {
-                        amount: {
-                            currency: Currency.Usd,
-                            units: 10000,
-                        },
-                        code: "SUMMER10DISCOUNT",
-                        detailsUrl: "https://www.example.com/SUMMER-SALE",
-                    },
-                ],
-                items: [
-                    {
-                        name: "Bolt Swag Bag",
-                        reference: "item_100",
-                        description: "Large tote with Bolt logo.",
-                        totalAmount: {
-                            currency: Currency.Usd,
-                            units: 9000,
-                        },
-                        unitPrice: 1000,
-                        quantity: 9,
-                        imageUrl: "https://www.example.com/products/123456/images/1.png",
-                    },
-                ],
-                total: {
-                    currency: Currency.Usd,
-                    units: 9000,
-                },
-                tax: {
-                    currency: Currency.Usd,
-                    units: 100,
-                },
-            },
-            paymentMethod: {
-                dotTag: DotTag.CreditCard,
-                billingAddress: {
-                    dotTag: AddressReferenceExplicitTag.Explicit,
-                    firstName: "Alice",
-                    lastName: "Baker",
-                    company: "ACME Corporation",
-                    streetAddress1: "535 Mission St, Ste 1401",
-                    streetAddress2: "c/o Shipping Department",
-                    locality: "San Francisco",
-                    postalCode: "94105",
-                    region: "CA",
-                    countryCode: CountryCode.Us,
-                    email: "alice@example.com",
-                    phone: "+14155550199",
-                },
-                network: CreditCardNetwork.Visa,
-                bin: "411111",
-                last4: "1004",
-                expiration: "2025-03",
-                token: "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
-            },
-        }
-    );
+        tax: {
+          currency: Currency.Usd,
+          units: 100,
+        },
+      },
+      paymentMethod: {
+        dotTag: DotTag.CreditCard,
+        billingAddress: {
+          dotTag: AddressReferenceExplicitTag.Explicit,
+          firstName: "Alice",
+          lastName: "Baker",
+          company: "ACME Corporation",
+          streetAddress1: "535 Mission St, Ste 1401",
+          streetAddress2: "c/o Shipping Department",
+          locality: "San Francisco",
+          postalCode: "94105",
+          region: "CA",
+          countryCode: CountryCode.Us,
+          email: "alice@example.com",
+          phone: "+14155550199",
+        },
+        network: CreditCardNetwork.Visa,
+        bin: "411111",
+        last4: "1004",
+        expiration: "2025-03",
+        token: "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
+      },
+    },
+  );
 
-    // Handle the result
-    console.log(result);
+  // Handle the result
+  console.log(result);
 }
 
 run();
@@ -508,28 +532,32 @@ To change the default retry strategy for a single API call, simply provide a ret
 import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 
 const boltTypescriptSDK = new BoltTypescriptSDK({
-    security: {
-        oauth: "<YOUR_OAUTH_HERE>",
-        apiKey: "<YOUR_API_KEY_HERE>",
-    },
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
 });
 
 async function run() {
-    const result = await boltTypescriptSDK.account.getDetails("<value>", "<value>", {
-        retries: {
-            strategy: "backoff",
-            backoff: {
-                initialInterval: 1,
-                maxInterval: 50,
-                exponent: 1.1,
-                maxElapsedTime: 100,
-            },
-            retryConnectionErrors: false,
+  const result = await boltTypescriptSDK.account.getDetails(
+    "<value>",
+    "<value>",
+    {
+      retries: {
+        strategy: "backoff",
+        backoff: {
+          initialInterval: 1,
+          maxInterval: 50,
+          exponent: 1.1,
+          maxElapsedTime: 100,
         },
-    });
+        retryConnectionErrors: false,
+      },
+    },
+  );
 
-    // Handle the result
-    console.log(result);
+  // Handle the result
+  console.log(result);
 }
 
 run();
@@ -541,27 +569,30 @@ If you'd like to override the default retry strategy for all operations that sup
 import { BoltTypescriptSDK } from "@boltpay/bolt-typescript-sdk";
 
 const boltTypescriptSDK = new BoltTypescriptSDK({
-    retryConfig: {
-        strategy: "backoff",
-        backoff: {
-            initialInterval: 1,
-            maxInterval: 50,
-            exponent: 1.1,
-            maxElapsedTime: 100,
-        },
-        retryConnectionErrors: false,
+  retryConfig: {
+    strategy: "backoff",
+    backoff: {
+      initialInterval: 1,
+      maxInterval: 50,
+      exponent: 1.1,
+      maxElapsedTime: 100,
     },
-    security: {
-        oauth: "<YOUR_OAUTH_HERE>",
-        apiKey: "<YOUR_API_KEY_HERE>",
-    },
+    retryConnectionErrors: false,
+  },
+  security: {
+    oauth: "<YOUR_OAUTH_HERE>",
+    apiKey: "<YOUR_API_KEY_HERE>",
+  },
 });
 
 async function run() {
-    const result = await boltTypescriptSDK.account.getDetails("<value>", "<value>");
+  const result = await boltTypescriptSDK.account.getDetails(
+    "<value>",
+    "<value>",
+  );
 
-    // Handle the result
-    console.log(result);
+  // Handle the result
+  console.log(result);
 }
 
 run();

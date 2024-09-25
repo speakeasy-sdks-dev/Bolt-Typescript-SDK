@@ -83,9 +83,9 @@ async function run() {
       id: "X5h6j8uLpVGK",
     },
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -174,7 +174,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -228,9 +228,9 @@ async function run() {
     dotTag: PaymentActionRequestTag.Finalize,
     redirectResult: "eyJ0cmFuc",
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -267,7 +267,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();

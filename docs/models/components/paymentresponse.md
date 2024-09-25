@@ -3,14 +3,20 @@
 ## Example Usage
 
 ```typescript
-import { Action, PaymentResponse, PaymentResponsePendingStatus, PaymentResponsePendingTag } from "@boltpay/bolt-typescript-sdk/models/components";
+import { PaymentResponse, PaymentResponseFinalizedTag, Status } from "@boltpay/bolt-typescript-sdk/models/components";
 
 let value: PaymentResponse = {
-    dotTag: PaymentResponsePendingTag.Pending,
-    id: "iKv7t5bgt1gg",
-    status: PaymentResponsePendingStatus.AwaitingUserConfirmation,
-    action: Action.Redirect,
-    url: "www.example.com/payments/finalize",
+  dotTag: PaymentResponseFinalizedTag.Finalized,
+  id: "iKv7t5bgt1gg",
+  status: Status.Success,
+  transaction: {
+    reference: "OBYG-X1PX-FN55",
+    authorizations: [
+      {
+        processorReference: "123456789XYZ",
+      },
+    ],
+  },
 };
 ```
 
